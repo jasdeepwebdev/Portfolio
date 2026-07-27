@@ -3,6 +3,7 @@ import HeroScene from '../canvas/HeroScene';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { Download, ChevronRight, Mail } from 'lucide-react';
+import resumePdf from '../assets/Jasdeep Resume.pdf';
 
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -78,15 +79,15 @@ export default function Hero() {
             <ChevronRight className="relative z-10 w-5 h-5 group-hover:text-white transition-colors duration-300 group-hover:translate-x-1" />
           </button>
           
-          <button className="group px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-full flex items-center justify-center gap-2 hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm">
+          <a href={resumePdf} download="Jasdeep Resume.pdf" className="group px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-full flex items-center justify-center gap-2 hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm">
             <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
             <span>Download Resume</span>
-          </button>
+          </a>
           
-          <button className="group px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-full flex items-center justify-center gap-2 hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm">
+          <a href="mailto:jasdeepsinghop@gmail.com" className="group px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-full flex items-center justify-center gap-2 hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm">
             <Mail className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
             <span>Contact Me</span>
-          </button>
+          </a>
         </motion.div>
       </div>
 

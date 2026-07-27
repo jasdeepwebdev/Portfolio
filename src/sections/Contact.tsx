@@ -68,15 +68,15 @@ export default function Contact() {
             </p>
 
             <div className="flex flex-col gap-6 mb-12">
-              <div className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors cursor-pointer group">
+              <a href="mailto:jasdeepsinghop@gmail.com" className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors cursor-pointer group">
                 <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-purple-500/20 group-hover:border-purple-500/50 transition-colors">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Email</p>
-                  <p className="font-medium">hello@jasdeepsingh.com</p>
+                  <p className="font-medium">jasdeepsinghop@gmail.com</p>
                 </div>
-              </div>
+              </a>
               
               <div className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors cursor-pointer group">
                 <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-cyan-500/20 group-hover:border-cyan-500/50 transition-colors">
@@ -90,8 +90,13 @@ export default function Contact() {
             </div>
 
             <div className="flex gap-4">
-              {[FaGithub, FaLinkedin, FaTwitter, FaInstagram].map((Icon, idx) => (
-                <a key={idx} href="#" className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/20 transition-all duration-300 hover:-translate-y-1">
+              {[
+                { Icon: FaGithub, href: "https://github.com/jasdeepwebdev" },
+                { Icon: FaLinkedin, href: "https://www.linkedin.com/in/jasdeep-singh-4a63ba423" },
+                { Icon: FaTwitter, href: "#" },
+                { Icon: FaInstagram, href: "#" }
+              ].map(({ Icon, href }, idx) => (
+                <a key={idx} href={href} target={href !== "#" ? "_blank" : undefined} rel={href !== "#" ? "noopener noreferrer" : undefined} className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/20 transition-all duration-300 hover:-translate-y-1">
                   <Icon className="w-5 h-5" />
                 </a>
               ))}
