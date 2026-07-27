@@ -3,48 +3,63 @@ import { motion } from 'framer-motion';
 import { Send, MapPin, Mail } from 'lucide-react';
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
 
+const InputField = ({ label, name, type = 'text', isTextArea = false, isFocused, onFocus, onBlur }: any) => {
+  return (
+    <div className="relative mb-8">
+      <motion.label 
+        initial={false}
+        animate={{
+          y: isFocused ? -24 : 0,
+          scale: isFocused ? 0.8 : 1,
+          color: isFocused ? '#06b6d4' : '#9ca3af'
+        }}
+        className="absolute left-4 top-4 transform origin-left pointer-events-none text-gray-400 font-medium"
+      >
+        {label}
+      </motion.label>
+      
+      {isTextArea ? (
+        <textarea
+          name={name}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          rows={5}
+          required
+          className="w-full bg-white/5 border-b-2 border-white/10 rounded-t-xl px-4 pt-8 pb-4 text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-colors resize-none"
+        />
+      ) : (
+        <input
+          type={type}
+          name={name}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          required
+          className="w-full bg-white/5 border-b-2 border-white/10 rounded-t-xl px-4 pt-8 pb-4 text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-colors"
+        />
+      )}
+    </div>
+  );
+};
+
 export default function Contact() {
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
   
   const handleFocus = (name: string) => setFocusedInput(name);
   const handleBlur = () => setFocusedInput(null);
 
-  const InputField = ({ label, name, type = 'text', isTextArea = false }: any) => {
-    const isFocused = focusedInput === name;
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const subject = formData.get('subject');
+    const message = formData.get('message');
     
-    return (
-      <div className="relative mb-8">
-        <motion.label 
-          initial={false}
-          animate={{
-            y: isFocused ? -24 : 0,
-            scale: isFocused ? 0.8 : 1,
-            color: isFocused ? '#06b6d4' : '#9ca3af'
-          }}
-          className="absolute left-4 top-4 transform origin-left pointer-events-none text-gray-400 font-medium"
-        >
-          {label}
-        </motion.label>
-        
-        {isTextArea ? (
-          <textarea
-            name={name}
-            onFocus={() => handleFocus(name)}
-            onBlur={handleBlur}
-            rows={5}
-            className="w-full bg-white/5 border-b-2 border-white/10 rounded-t-xl px-4 pt-8 pb-4 text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-colors resize-none"
-          />
-        ) : (
-          <input
-            type={type}
-            name={name}
-            onFocus={() => handleFocus(name)}
-            onBlur={handleBlur}
-            className="w-full bg-white/5 border-b-2 border-white/10 rounded-t-xl px-4 pt-8 pb-4 text-white focus:outline-none focus:border-cyan-400 focus:bg-white/10 transition-colors"
-          />
-        )}
-      </div>
-    );
+    const text = `Hello! I'm ${name} (${email}).\n\nSubject: ${subject}\n\nMessage: ${message}`;
+    const encodedText = encodeURIComponent(text);
+    const whatsappUrl = `https://wa.me/918077742337?text=${encodedText}`;
+    
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
@@ -111,16 +126,16 @@ export default function Contact() {
             className="w-full lg:w-7/12"
           >
             <div className="bg-white/[0.02] border border-white/5 rounded-3xl p-8 md:p-12 backdrop-blur-md">
-              <form onSubmit={(e) => e.preventDefault()}>
+              <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8">
-                  <InputField label="Your Name" name="name" />
-                  <InputField label="Your Email" name="email" type="email" />
+                  <InputField label="Your Name" name="name" isFocused={focusedInput === 'name'} onFocus={() => handleFocus('name')} onBlur={handleBlur} />
+                  <InputField label="Your Email" name="email" type="email" isFocused={focusedInput === 'email'} onFocus={() => handleFocus('email')} onBlur={handleBlur} />
                 </div>
                 
-                <InputField label="Subject" name="subject" />
-                <InputField label="Message" name="message" isTextArea={true} />
+                <InputField label="Subject" name="subject" isFocused={focusedInput === 'subject'} onFocus={() => handleFocus('subject')} onBlur={handleBlur} />
+                <InputField label="Message" name="message" isTextArea={true} isFocused={focusedInput === 'message'} onFocus={() => handleFocus('message')} onBlur={handleBlur} />
 
-                <button className="group relative w-full py-5 bg-white text-black font-bold rounded-xl overflow-hidden flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform duration-300 mt-4">
+                <button type="submit" className="group relative w-full py-5 bg-white text-black font-bold rounded-xl overflow-hidden flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform duration-300 mt-4">
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <span className="relative z-10 group-hover:text-white transition-colors duration-300">Send Message</span>
                   <Send className="relative z-10 w-5 h-5 group-hover:text-white transition-colors duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
