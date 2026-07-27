@@ -9,6 +9,17 @@ export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
   const textRef = useRef<HTMLDivElement>(null);
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const href = e.currentTarget.getAttribute('href');
+    if (!href) return;
+    const targetId = href.replace('#', '');
+    const elem = document.getElementById(targetId);
+    if (elem) {
+      elem.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     if (isLoaded && textRef.current) {
       const chars = textRef.current.querySelectorAll('.char');
@@ -73,18 +84,18 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 1.2 }}
           className="flex flex-col sm:flex-row gap-4 sm:gap-6"
         >
-          <button className="group relative px-8 py-4 bg-white text-black font-semibold rounded-full overflow-hidden flex items-center justify-center gap-2 hover:scale-105 transition-transform duration-300">
+          <a href="#projects" onClick={handleScroll} className="group relative px-8 py-4 bg-white text-black font-semibold rounded-full overflow-hidden flex items-center justify-center gap-2 hover:scale-105 transition-transform duration-300">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <span className="relative z-10 group-hover:text-white transition-colors duration-300">View Projects</span>
             <ChevronRight className="relative z-10 w-5 h-5 group-hover:text-white transition-colors duration-300 group-hover:translate-x-1" />
-          </button>
+          </a>
           
           <a href={resumePdf} download="Jasdeep Resume.pdf" className="group px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-full flex items-center justify-center gap-2 hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm">
             <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
             <span>Download Resume</span>
           </a>
           
-          <a href="mailto:jasdeepsinghop@gmail.com" className="group px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-full flex items-center justify-center gap-2 hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm">
+          <a href="#contact" onClick={handleScroll} className="group px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-full flex items-center justify-center gap-2 hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm">
             <Mail className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
             <span>Contact Me</span>
           </a>

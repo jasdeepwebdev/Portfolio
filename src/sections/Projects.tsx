@@ -5,28 +5,12 @@ import { FaGithub } from 'react-icons/fa';
 
 const projectsData = [
   {
-    title: 'E-Commerce Platform',
-    description: 'A full-featured scalable e-commerce platform built with React, Node.js, and PostgreSQL. Features real-time inventory, payment gateway integration, and an admin dashboard.',
-    image: 'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80',
-    tags: ['React', 'Node.js', 'PostgreSQL', 'Tailwind'],
-    liveUrl: '#',
-    githubUrl: '#'
-  },
-  {
-    title: 'AI Analytics Dashboard',
-    description: 'A modern analytics dashboard leveraging AI to provide predictive insights. Built with Next.js, Three.js for data visualization, and Python for the machine learning backend.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80',
-    tags: ['Next.js', 'Three.js', 'Python', 'Framer Motion'],
-    liveUrl: '#',
-    githubUrl: '#'
-  },
-  {
-    title: 'Web3 NFT Marketplace',
-    description: 'Decentralized application for minting and trading NFTs. Smart contracts written in Solidity and deployed on the Ethereum blockchain.',
-    image: 'https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?auto=format&fit=crop&q=80',
-    tags: ['Solidity', 'Web3.js', 'React', 'Tailwind'],
-    liveUrl: '#',
-    githubUrl: '#'
+    title: 'HRM System',
+    description: 'A comprehensive Human Resource Management frontend application with a sleek dashboard, employee management, and attendance tracking.',
+    image: '/projects/hrm-dashboard.png',
+    tags: ['React', 'Tailwind CSS', 'Vite', 'Frontend'],
+    liveUrl: 'https://hrm-frontend-iota-topaz.vercel.app/login',
+    githubUrl: 'https://github.com/jasdeepwebdev?tab=repositories'
   }
 ];
 
@@ -131,7 +115,7 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
 
 export default function Projects() {
   return (
-    <section className="py-32 px-6 bg-[#050816] relative overflow-hidden">
+    <section id="projects" className="py-32 px-6 bg-[#050816] relative overflow-hidden">
       <div className="container mx-auto max-w-7xl relative z-10">
         <div className="text-center mb-20">
           <h2 className="text-sm text-cyan-400 uppercase tracking-widest mb-4 font-semibold">Portfolio</h2>
